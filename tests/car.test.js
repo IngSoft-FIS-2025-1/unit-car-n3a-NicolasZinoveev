@@ -1,5 +1,4 @@
-import Car from "../src/car";
-import { expect, test, describe, beforeEach } from "@jest/globals";
+const Car = require("../src/car");
 
 /* Jest Cheatsheet https://github.com/sapegin/jest-cheat-sheet */
 
@@ -34,35 +33,55 @@ describe("Car", () => {
 
   describe("decelerate", () => {
     test("should decrease speed by the specified amount", () => {
-      //TODO
+      car.decelerate(30);
+      expect(car.speed).toBe(20);
     });
 
     test("should not decrease speed below zero", () => {
-      //TODO
+      car.speed = 10;
+      car.decelerate(20);
+      expect(car.speed).toBe(0);
     });
 
     test("should not accept a negative amount", () => {
-      //TODO
+      const negativeAmount = -20;
+      expect(() => car.accelerate(negativeAmount)).toThrowError(
+        "Amount should be a positive number.",
+      );
     });
   });
 
   describe("getSpeed", () => {
-    //TODO
+    test("should return the current speed", () => {
+      car.speed = 50;
+      expect(car.getSpeed()).toBe(50);
+    });
   });
 
   describe("stop", () => {
-    //TODO
+    test("should reset speed to 0", () => {
+      car.stop();
+      expect(car.speed).toBe(0);
+    });
   });
 
   describe("calculateDistance", () => {
-    //TODO
+     test("should return correct distance based on speed and time", () => {
+      const distance = car.calculateDistance(3);
+      expect(distance).toBe(150);
+    });
   });
 
   describe("isMoving", () => {
-    //TODO
+    test("should return false when speed is 0", () => {
+      car.speed = 0;
+      expect(car.isMoving()).toBe(false);
+    });
   });
 
   describe("getDescription", () => {
-    //TODO
+   test("should return correct car description", () => {
+      expect(car.getDescription()).toBe("2023 Toyota Corolla");
+    });
   });
 });
